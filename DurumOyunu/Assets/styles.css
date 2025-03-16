@@ -1,0 +1,458 @@
+/* Genel Stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f4e5;
+    color: #333;
+    line-height: 1.6;
+    background-image: url('images/restaurant-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+    color: #d35400;
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    color: #d35400;
+    margin-bottom: 10px;
+    font-size: 1.3rem;
+}
+
+/* Oyun Alanı */
+#game-container {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    grid-template-rows: auto 1fr;
+    gap: 15px;
+    margin-bottom: 30px;
+    height: 600px;
+}
+
+#durum-area {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('images/wooden-board.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+}
+
+#durum-wrapper {
+    width: 450px;
+    height: 450px;
+    position: relative;
+    transform: rotate(0deg);
+    transition: transform 0.5s ease;
+}
+
+.durum-layer {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Lavaş arka plan resmini kaldırıyoruz, artık seçilebilir bir malzeme olacak */
+#durum-ingredients {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.ingredient {
+    position: absolute;
+    z-index: 3;
+    width: 40%;
+    height: auto;
+    transition: all 0.3s ease;
+    mix-blend-mode: multiply; /* Beyaz arka planı kaldırmak için */
+}
+
+/* Malzemelerin konumlandırılması için yeni sınıflar - daha fazla pozisyon ve daha iyi dağılım */
+.ingredient-pos-1 {
+    top: 5%;
+    left: 5%;
+    transform: scale(0.9) rotate(15deg);
+}
+
+.ingredient-pos-2 {
+    top: 5%;
+    right: 5%;
+    transform: scale(0.85) rotate(-20deg);
+}
+
+.ingredient-pos-3 {
+    top: 25%;
+    left: 10%;
+    transform: scale(0.8) rotate(30deg);
+}
+
+.ingredient-pos-4 {
+    top: 25%;
+    right: 10%;
+    transform: scale(0.9) rotate(-10deg);
+}
+
+.ingredient-pos-5 {
+    bottom: 5%;
+    left: 5%;
+    transform: scale(0.85) rotate(-25deg);
+}
+
+.ingredient-pos-6 {
+    bottom: 5%;
+    right: 5%;
+    transform: scale(0.8) rotate(20deg);
+}
+
+.ingredient-pos-7 {
+    top: 45%;
+    left: 15%;
+    transform: scale(0.75) rotate(40deg);
+}
+
+.ingredient-pos-8 {
+    bottom: 45%;
+    right: 15%;
+    transform: scale(0.8) rotate(-35deg);
+}
+
+.ingredient-pos-9 {
+    top: 15%;
+    left: 35%;
+    transform: scale(0.9) rotate(5deg);
+}
+
+.ingredient-pos-10 {
+    bottom: 15%;
+    right: 35%;
+    transform: scale(0.85) rotate(-15deg);
+}
+
+.ingredient-pos-11 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.9) rotate(10deg);
+}
+
+.ingredient-pos-12 {
+    top: 35%;
+    right: 25%;
+    transform: scale(0.8) rotate(-30deg);
+}
+
+.ingredient-pos-13 {
+    bottom: 35%;
+    left: 25%;
+    transform: scale(0.85) rotate(25deg);
+}
+
+.ingredient-pos-14 {
+    top: 65%;
+    right: 10%;
+    transform: scale(0.75) rotate(-20deg);
+}
+
+.ingredient-pos-15 {
+    top: 65%;
+    left: 10%;
+    transform: scale(0.8) rotate(15deg);
+}
+
+/* Paneller */
+#ingredients-panel, #order-panel, #score-panel {
+    background-color: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+}
+
+#ingredients-panel {
+    grid-column: 2;
+    grid-row: 1;
+    height: auto;
+}
+
+#order-panel {
+    grid-column: 2;
+    grid-row: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#ingredients-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    max-height: none;
+    overflow-y: visible;
+}
+
+.ingredient-btn {
+    background-color: #d35400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-size: 0.9rem;
+}
+
+.ingredient-btn img {
+    width: 30px;
+    height: 30px;
+    margin-bottom: 3px;
+    mix-blend-mode: multiply; /* Beyaz arka planı kaldırmak için */
+}
+
+.ingredient-btn:hover {
+    background-color: #e67e22;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#current-order {
+    min-height: 120px;
+    max-height: none;
+    margin-bottom: 15px;
+    border: 2px solid #d35400;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow-y: visible;
+    flex-grow: 1;
+}
+
+#current-order h3 {
+    color: #d35400;
+    font-size: 1rem;
+    margin-bottom: 8px;
+}
+
+.customer-comment {
+    font-style: italic;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+    color: #555;
+    border-left: 3px solid #d35400;
+    padding-left: 8px;
+}
+
+.ingredients-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5px;
+}
+
+.order-item {
+    margin-bottom: 5px;
+    padding: 5px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+}
+
+.order-item img {
+    width: 18px;
+    height: 18px;
+    margin-right: 8px;
+    mix-blend-mode: multiply; /* Beyaz arka planı kaldırmak için */
+}
+
+#submit-order {
+    background-color: #27ae60;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 15px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: all 0.3s;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-top: 10px;
+}
+
+#submit-order:hover {
+    background-color: #2ecc71;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Skor Paneli */
+#score-panel {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+#score {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #d35400;
+}
+
+/* Oyun Sonu Ekranı */
+#game-over {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    color: white;
+}
+
+#game-over h2 {
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+#final-score {
+    font-size: 3rem;
+    color: #f39c12;
+    font-weight: bold;
+    margin: 20px 0;
+}
+
+#restart-game {
+    background-color: #d35400;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    margin-top: 20px;
+    transition: all 0.3s;
+    font-weight: bold;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+#restart-game:hover {
+    background-color: #e67e22;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Animasyonlar */
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+@keyframes rotate {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.bounce {
+    animation: bounce 0.5s;
+}
+
+/* Zamanlayıcı */
+#timer {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: #d35400;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+/* Responsive Tasarım */
+@media (max-width: 768px) {
+    #game-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto auto;
+    }
+    
+    #durum-area {
+        grid-column: 1;
+        grid-row: 1;
+        height: 400px;
+    }
+    
+    #ingredients-panel {
+        grid-column: 1;
+        grid-row: 2;
+    }
+    
+    #order-panel {
+        grid-column: 1;
+        grid-row: 3;
+    }
+} 

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dürüm Yapma Oyunu</title>
+    <link rel="stylesheet" href="Assets/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Dürüm Efsanesi</h1>
+            <p>En lezzetli dürümleri hazırlayarak müşterileri mutlu et!</p>
+        </header>
+        
+        <main>
+            <div id="game-container">
+                <div id="durum-area">
+                    <div id="timer">Süre: <span id="time-left">60</span></div>
+                    <!-- Dürüm burada görüntülenecek -->
+                    <div id="durum-wrapper">
+                        <!-- Lavaş artık seçilebilir bir malzeme olduğu için ayrı bir div'e gerek yok -->
+                        <div id="durum-ingredients" class="durum-layer">
+                            <!-- Malzemeler buraya eklenecek -->
+                        </div>
+                    </div>
+                </div>
+                
+                <div id="ingredients-panel">
+                    <h2><i class="fas fa-utensils"></i> Malzemeler</h2>
+                    <div id="ingredients-container">
+                        <!-- Malzeme butonları JavaScript ile eklenecek -->
+                    </div>
+                </div>
+                
+                <div id="order-panel">
+                    <h2><i class="fas fa-clipboard-list"></i> Sipariş</h2>
+                    <div id="current-order">
+                        <!-- Mevcut sipariş burada görüntülenecek -->
+                    </div>
+                    <button id="submit-order"><i class="fas fa-check-circle"></i> Siparişi Tamamla</button>
+                </div>
+            </div>
+        </main>
+        
+        <div id="score-panel">
+            <h2><i class="fas fa-star"></i> Puan: <span id="score">0</span></h2>
+            <div id="level-info">Seviye: <span id="current-level">1</span></div>
+        </div>
+        
+        <div id="game-over" class="hidden">
+            <h2>Oyun Bitti!</h2>
+            <p>Toplam Puanınız:</p>
+            <div id="final-score">0</div>
+            <button id="restart-game"><i class="fas fa-redo"></i> Yeniden Başla</button>
+        </div>
+    </div>
+    
+    <!-- MVVM Mimarisi için gerekli script dosyaları -->
+    <script src="Models/ingredient.js"></script>
+    <script src="Models/order.js"></script>
+    <script src="Models/game.js"></script>
+    <script src="ViewModels/gameViewModel.js"></script>
+    <script src="Services/orderService.js"></script>
+    <script src="Views/gameView.js"></script>
+    <script src="app.js"></script>
+</body>
+</html> 
